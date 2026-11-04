@@ -1,4 +1,801 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-:root{--ink:#352b35;--muted:#827783;--accent:#b56d77;--accent-dark:#8e4f5a;--paper:#fffdfb;--bg:#fbf2ed;--line:#f0e3df}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 8%,#f8dfdc 0,transparent 27%),radial-gradient(circle at 90% 35%,#f7e8d9 0,transparent 25%),var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}.page{width:min(760px,calc(100% - 28px));margin:38px auto 24px}.card{background:rgba(255,253,251,.94);border:1px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:0 18px 55px rgba(91,58,63,.08);padding:clamp(25px,6vw,54px);margin-bottom:20px;text-align:center}.hero{padding-top:44px}.eyebrow,.section-kicker{letter-spacing:.19em;text-transform:uppercase;font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 20px}.portrait-wrap{width:170px;height:170px;border-radius:50%;padding:7px;border:1px solid #e7c9c7;margin:0 auto 23px;background:#fff}.portrait-wrap img{width:100%;height:100%;border-radius:50%;object-fit:cover}.intro{font-size:.95rem;color:var(--muted);margin:0 0 8px}.hero h1{font:600 clamp(2.5rem,8vw,4.8rem)/1.04 'Playfair Display',serif;margin:0;color:#4b3742}.age-line{font:500 1.15rem 'Playfair Display',serif;color:var(--accent);margin:13px 0}.rule{display:flex;align-items:center;gap:15px;width:min(260px,80%);margin:25px auto;color:#d5a5a5}.rule:before,.rule:after{content:"";height:1px;background:#ead5d1;flex:1}.message{max-width:490px;margin:0 auto;color:#756a74;line-height:1.75}.countdown{display:flex;justify-content:center;gap:12px;margin:32px auto 8px}.countdown div{width:88px;padding:13px 6px;background:#fbf1ee;border:1px solid #f1e2df;border-radius:15px}.countdown strong{display:block;font:600 1.8rem 'Playfair Display',serif;color:var(--accent-dark)}.countdown span{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:3px}.countdown-label{font-size:.75rem;color:var(--muted);margin:10px 0 0}.details h2,.artwork h2,.rsvp h2{font:600 clamp(1.8rem,5vw,2.5rem) 'Playfair Display',serif;margin:0 0 27px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;margin-bottom:24px}.detail{display:flex;gap:13px;align-items:flex-start;background:#fff9f6;padding:16px;border-radius:15px;border:1px solid var(--line);min-width:0}.detail:last-child{grid-column:1/-1}.detail-icon{font-size:1.35rem}.detail small,.detail strong,.detail span#address{display:block}.detail small{font-size:.72rem;color:var(--muted);margin-bottom:5px}.detail strong{font-size:.95rem}.detail #address{font-size:.82rem;line-height:1.5;color:var(--muted);margin-top:4px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.9rem;transition:transform .2s,box-shadow .2s}.button:hover{transform:translateY(-2px);box-shadow:0 8px 22px #b56d7730}.button-light{color:var(--accent-dark);border:1px solid #e7c9c7;background:#fff}.button-primary{color:white;background:linear-gradient(135deg,#c17d84,#a95f6c);box-shadow:0 8px 20px #b56d7730}.artwork img{display:block;max-width:100%;max-height:900px;object-fit:contain;margin:0 auto;border-radius:12px}.rsvp p:not(.section-kicker){color:var(--muted);line-height:1.65}.rsvp .note{font-size:.75rem;margin:14px 0 0}footer{text-align:center;color:#9a8992;font-size:.75rem;padding:14px}.confetti{position:fixed;color:#d7a1a4;font-size:2rem;opacity:.55;pointer-events:none}.confetti-one{top:12%;left:5%}.confetti-two{right:6%;top:42%;font-size:2.7rem} [hidden]{display:none!important}
-@media(max-width:540px){.page{margin:14px auto}.card{border-radius:21px;padding:27px 20px}.hero{padding-top:34px}.portrait-wrap{width:145px;height:145px}.countdown{gap:6px}.countdown div{width:25%;padding:10px 3px}.countdown strong{font-size:1.4rem}.countdown span{font-size:.58rem}.detail-grid{grid-template-columns:1fr}.detail:last-child{grid-column:auto}.confetti{display:none}}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --ink: #f5f5f5;
+  --muted: #bdbdbd;
+  --silver: #e5e5e5;
+  --pink: #d0d0d0;
+  --blue: #ffffff;
+  --purple: #929292;
+  --panel: rgba(17, 17, 17, .92);
+  --line: rgba(225, 225, 225, .20);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+
+  background:
+    radial-gradient(ellipse at 12% 12%, rgba(210,210,210,.10), transparent 32%),
+    radial-gradient(ellipse at 88% 30%, rgba(255,255,255,.07), transparent 30%),
+    radial-gradient(ellipse at 50% 90%, rgba(150,150,150,.08), transparent 36%),
+    #050505;
+
+  background-size: 200% 200%;
+  animation: backgroundMove 16s ease-in-out infinite alternate;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Cuadricula decorativa del fondo */
+
+body::before {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  content: "";
+  opacity: .12;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+/* Contenedor principal */
+
+.page {
+  width: min(780px, calc(100% - 28px));
+  margin: 34px auto 24px;
+  position: relative;
+}
+
+/* Tarjetas */
+
+.card {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding: clamp(25px, 6vw, 54px);
+  text-align: center;
+
+  border: 1px solid rgba(220,220,220,.20);
+  border-radius: 25px;
+
+  background: var(--panel);
+
+  box-shadow:
+    0 18px 65px rgba(0,0,0,.55),
+    inset 0 0 35px rgba(255,255,255,.025);
+
+  backdrop-filter: blur(14px);
+
+  animation: cardAppear 1s ease both;
+}
+
+.card::before {
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  content: "";
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffffff,
+    #bdbdbd,
+    #ffffff,
+    transparent
+  );
+
+  background-size: 200% 100%;
+  animation: silverLine 5s linear infinite;
+}
+
+.card:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.card:nth-child(3) {
+  animation-delay: .3s;
+}
+
+.card:nth-child(4) {
+  animation-delay: .45s;
+}
+
+/* Presentacion principal */
+
+.hero {
+  padding-top: 44px;
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 20px;
+  color: #d5d5d5;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+/* Fotografia */
+
+.portrait-wrap {
+  width: 168px;
+  height: 168px;
+  margin: 0 auto 23px;
+  padding: 6px;
+
+  border: 2px solid transparent;
+  border-radius: 50%;
+
+  background:
+    linear-gradient(#101010, #101010) padding-box,
+    linear-gradient(135deg, #ffffff, #a8a8a8, #eeeeee) border-box;
+
+  animation: portraitGlow 4s ease-in-out infinite alternate;
+}
+
+.portrait-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Textos principales */
+
+.intro {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #fff;
+
+  font: 900 clamp(2.7rem, 9vw, 5rem)/1.08 'Nunito', sans-serif;
+  letter-spacing: -.055em;
+
+  text-shadow:
+    0 0 18px rgba(255,255,255,.22),
+    0 0 28px rgba(190,190,190,.15);
+}
+
+.event-title {
+  margin: 12px 0 0;
+  color: var(--silver);
+
+  font: 800 clamp(1rem, 3vw, 1.35rem) 'Nunito', sans-serif;
+
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.age-line {
+  margin: 13px 0;
+  color: #dedede;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+/* Separador */
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  width: min(260px, 80%);
+  margin: 25px auto;
+
+  color: #e5e5e5;
+}
+
+.rule::before,
+.rule::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, #ffffff);
+}
+
+.rule::after {
+  background: linear-gradient(90deg, #a8a8a8, transparent);
+}
+
+/* Mensaje */
+
+.message {
+  max-width: 490px;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* Etiqueta Disco Party */
+
+.disco-tag {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 9px 16px;
+
+  border: 1px solid rgba(220,220,220,.55);
+  border-radius: 999px;
+
+  color: #ffffff;
+  font: 800 .72rem 'Nunito', sans-serif;
+  letter-spacing: .16em;
+
+  box-shadow: 0 0 18px rgba(255,255,255,.12);
+}
+
+/* Cuenta regresiva */
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 11px;
+  margin: 30px auto 8px;
+}
+
+.countdown div {
+  width: 88px;
+  padding: 13px 6px;
+
+  border: 1px solid var(--line);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.045);
+}
+
+.countdown strong {
+  display: block;
+  color: #ffffff;
+  font: 900 1.7rem 'Nunito', sans-serif;
+  animation: numberGlow 2.5s ease-in-out infinite alternate;
+}
+
+.countdown span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .65rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.countdown-label {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+/* Titulos de secciones */
+
+.details h2,
+.artwork h2,
+.rsvp h2,
+.party-info h2 {
+  margin: 0 0 27px;
+  color: #ffffff;
+
+  font: 900 clamp(1.65rem, 5vw, 2.35rem) 'Nunito', sans-serif;
+  letter-spacing: -.04em;
+}
+
+/* Detalles del evento */
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  min-width: 0;
+  padding: 16px;
+
+  border: 1px solid var(--line);
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.045);
+}
+
+.detail:last-child {
+  grid-column: 1 / -1;
+}
+
+.detail-icon {
+  font-size: 1.3rem;
+}
+
+.detail small,
+.detail strong,
+.detail #address {
+  display: block;
+}
+
+.detail small {
+  margin-bottom: 5px;
+  color: #d5d5d5;
+  font-size: .72rem;
+}
+
+.detail strong {
+  color: #ffffff;
+  font-size: .94rem;
+}
+
+.detail #address {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+/* Dress code y recomendaciones */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+}
+
+.info-item {
+  padding: 21px 15px;
+
+  border: 1px solid var(--line);
+  border-radius: 17px;
+
+  background: rgba(255,255,255,.045);
+}
+
+.info-icon {
+  font-size: 1.65rem;
+}
+
+.info-item h3 {
+  margin: 9px 0 7px;
+  color: #e5e5e5;
+
+  font: 800 .85rem 'Nunito', sans-serif;
+  letter-spacing: .04em;
+}
+
+.info-item p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: .9rem;
+}
+
+/* Botones */
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 49px;
+  padding: 13px 22px;
+
+  border-radius: 999px;
+  text-decoration: none;
+
+  font-size: .9rem;
+  font-weight: 900;
+
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button::after {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  content: "";
+
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255,255,255,.7),
+    transparent
+  );
+
+  transform: skewX(-25deg);
+  transition: left .7s ease;
+}
+
+.button:hover::after {
+  left: 150%;
+}
+
+.button-light,
+.button-primary {
+  color: #080808;
+
+  background: linear-gradient(110deg, #ffffff, #bdbdbd);
+  box-shadow: 0 8px 24px rgba(255,255,255,.13);
+}
+
+/* Imagen adicional */
+
+.artwork img {
+  display: block;
+  max-width: 100%;
+  max-height: 900px;
+  margin: 0 auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Confirmacion */
+
+.rsvp p:not(.section-kicker) {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.rsvp .note {
+  margin: 14px 0 0;
+  font-size: .75rem;
+}
+
+/* Pie de pagina */
+
+footer {
+  padding: 14px;
+  color: #999999;
+  text-align: center;
+  font-size: .75rem;
+}
+
+/* Luces ambientales */
+
+.disco-glow {
+  position: fixed;
+  z-index: -1;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+  filter: blur(75px);
+  opacity: .2;
+  pointer-events: none;
+
+  animation: glowFloat 9s ease-in-out infinite alternate;
+}
+
+.glow-one {
+  top: 7%;
+  left: -110px;
+  background: #bdbdbd;
+}
+
+.glow-two {
+  top: 40%;
+  right: -120px;
+  background: #777777;
+  animation-delay: 3s;
+}
+
+/* Bola disco */
+
+.disco-ball {
+  position: fixed !important;
+  z-index: 9999 !important;
+
+  top: 35px !important;
+  right: 35px !important;
+
+  width: 105px !important;
+  height: 105px !important;
+
+  display: block !important;
+  border: 2px solid rgba(255,255,255,.85) !important;
+  border-radius: 50% !important;
+
+  color: transparent !important;
+  font-size: 0 !important;
+
+  background-color: #777 !important;
+
+  background-image:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255,255,255,.95),
+      transparent 24%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #eeeeee 0px,
+      #777777 5px,
+      #d9d9d9 9px,
+      #444444 13px
+    ) !important;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,.8),
+    0 0 35px rgba(255,255,255,.5),
+    0 0 65px rgba(255,255,255,.25);
+
+  opacity: 1 !important;
+  animation: discoBallSpin 8s linear infinite,
+             discoBallGlow 2s ease-in-out infinite alternate;
+}
+
+.disco-ball::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px 9px,
+      rgba(255,255,255,.75) 10px 11px,
+      transparent 12px 19px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px 9px,
+      rgba(255,255,255,.75) 10px 11px,
+      transparent 12px 19px
+    );
+
+  box-shadow: inset 0 0 20px rgba(0,0,0,.8);
+}
+
+.disco-ball::after {
+  content: "";
+  position: absolute;
+
+  top: 12%;
+  left: 18%;
+
+  width: 25%;
+  height: 25%;
+
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  filter: blur(8px);
+}
+
+/* Destellos */
+
+.spark {
+  position: fixed;
+  z-index: -1;
+  color: #ffffff;
+  opacity: .55;
+  pointer-events: none;
+
+  animation: sparkFloat 4s ease-in-out infinite;
+}
+
+.spark-one {
+  top: 34%;
+  left: 5%;
+  font-size: 2.3rem;
+}
+
+.spark-two {
+  right: 5%;
+  bottom: 12%;
+  color: #d0d0d0;
+  font-size: 2rem;
+  animation-delay: 2s;
+}
+
+/* Elementos ocultos */
+
+[hidden] {
+  display: none !important;
+}
+
+/* Animaciones */
+
+@keyframes backgroundMove {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 100%; }
+}
+
+@keyframes glowFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: .12;
+  }
+
+  50% {
+    transform: translate(45px, 55px) scale(1.2);
+    opacity: .25;
+  }
+
+  100% {
+    transform: translate(-25px, -35px) scale(.9);
+    opacity: .16;
+  }
+}
+
+@keyframes discoBallSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes discoBallGlow {
+  from {
+    filter: brightness(.8);
+    box-shadow: 0 0 15px rgba(255,255,255,.15);
+  }
+
+  to {
+    filter: brightness(1.5);
+    box-shadow:
+      0 0 25px rgba(255,255,255,.4),
+      0 0 45px rgba(220,220,220,.18);
+  }
+}
+
+@keyframes sparkFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(.8);
+    opacity: .2;
+  }
+
+  50% {
+    transform: translateY(-25px) rotate(45deg) scale(1.3);
+    opacity: .9;
+  }
+}
+
+@keyframes silverLine {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@keyframes portraitGlow {
+  from {
+    box-shadow:
+      0 0 15px rgba(255,255,255,.12),
+      0 0 25px rgba(200,200,200,.08);
+  }
+
+  to {
+    box-shadow:
+      0 0 28px rgba(255,255,255,.35),
+      0 0 45px rgba(200,200,200,.18);
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes numberGlow {
+  from {
+    text-shadow: 0 0 3px rgba(255,255,255,.15);
+  }
+
+  to {
+    text-shadow:
+      0 0 12px rgba(255,255,255,.5),
+      0 0 22px rgba(220,220,220,.25);
+  }
+}
+
+/* Adaptacion para celulares */
+
+@media (max-width: 540px) {
+  .page {
+    margin: 14px auto;
+  }
+
+  .card {
+    padding: 27px 20px;
+    border-radius: 21px;
+  }
+
+  .hero {
+    padding-top: 34px;
+  }
+
+  .portrait-wrap {
+    width: 145px;
+    height: 145px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .countdown div {
+    width: 25%;
+    padding: 10px 3px;
+  }
+
+  .countdown strong {
+    font-size: 1.25rem;
+  }
+
+  .countdown span {
+    font-size: .55rem;
+  }
+
+  .detail-grid,
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail:last-child {
+    grid-column: auto;
+  }
+
+  .disco-ball {
+    width: 70px !important;
+    height: 70px !important;
+    top: 15px !important;
+    right: 15px !important;
+  }
+
+  .spark {
+    display: none;
+  }
+}
+
+/* Reducir movimiento si el usuario lo solicita */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

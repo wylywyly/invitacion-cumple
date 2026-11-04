@@ -5,19 +5,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8f1">
-  <meta name="description" content="Invitación digital al cumpleaños de Evelyn">
+  <meta name="theme-color" content="#07070c">
+  <meta name="description" content="Evelyn's Birthday - Disco Party">
+  <title>Evelyn's Birthday</title>
 
-  <title>¡Estás invitado!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- Decoracion -->
-  <div class="confetti confetti-one" aria-hidden="true">✦</div>
-  <div class="confetti confetti-two" aria-hidden="true">✧</div>
+  <!-- Decoracion estilo disco -->
+  <div class="disco-glow glow-one" aria-hidden="true"></div>
+  <div class="disco-glow glow-two" aria-hidden="true"></div>
+  <div class="disco-ball" aria-hidden="true">✦</div>
+  <div class="spark spark-one" aria-hidden="true">✧</div>
+  <div class="spark spark-two" aria-hidden="true">✦</div>
 
   <main class="page">
 
@@ -25,22 +31,26 @@
     <section class="hero card">
 
       <p class="eyebrow" id="eyebrow">
-        ¡Tenemos algo que celebrar!
+        ESTAS INVITADO A
       </p>
 
       <div class="portrait-wrap" id="portraitWrap">
         <img
           id="portrait"
-          src="assets/foto.jpeg"
+          src="assets/foto2.PNG"
           alt="Fotografía de Evelyn"
         >
       </div>
 
       <p class="intro">
-        Acompáñanos a celebrar
+        Acompáñame a celebrar
       </p>
 
       <h1 id="personName">Evelyn</h1>
+
+      <p class="event-title" id="eventTitle">
+        Evelyn's Birthday
+      </p>
 
       <p class="age-line" id="ageLine">
         ¡Celebro mis 21 años!
@@ -51,8 +61,13 @@
       </div>
 
       <p class="message" id="message">
-        Será un día muy especial y me encantaría compartirlo contigo.
+        Prepárate para una noche llena de energia y buenos momentos.
+        ¡Ven a festajar conmigo!
       </p>
+
+      <div class="disco-tag">
+        ✧ DISCO PARTY ✧
+      </div>
 
       <!-- Cuenta regresiva -->
       <div class="countdown" aria-label="Cuenta regresiva">
@@ -89,7 +104,7 @@
     <section class="card details">
 
       <p class="section-kicker">
-        GUARDA LA FECHA
+        
       </p>
 
       <h2>Detalles del evento</h2>
@@ -102,7 +117,7 @@
 
           <div>
             <small>Fecha</small>
-            <strong id="eventDate">Por definir</strong>
+            <strong id="eventDate">21/11/2026</strong>
           </div>
         </div>
 
@@ -112,7 +127,7 @@
 
           <div>
             <small>Hora</small>
-            <strong id="eventTime">Por definir</strong>
+            <strong id="eventTime">6:00 p. m.</strong>
           </div>
         </div>
 
@@ -122,8 +137,8 @@
 
           <div>
             <small>Lugar</small>
-            <strong id="venue">Por definir</strong>
-            <span id="address"></span>
+            <strong id="venue">Casa de Marcos</strong>
+            <span id="address">Carlos Darwin 6280, Condesa de Álamos, San Lorenzo, 32320 Juárez, Chih.</span>
           </div>
         </div>
 
@@ -141,11 +156,54 @@
 
     </section>
 
+    <!-- Dress code y recomendaciones -->
+    <section class="card party-info">
+
+      <p class="section-kicker">
+        PARTY INFO
+      </p>
+
+      <h2> Detalles de la fiesta</h2>
+
+      <div class="info-grid">
+
+        <div class="info-item">
+          <span class="info-icon">🖤</span>
+          <h3>Dress code</h3>
+          <p id="dressCode">Todos de negro</p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">✨</span>
+          <h3>Temática</h3>
+          <p id="themeText">Disco Party</p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">💌</span>
+          <h3>Buzón de dinero</h3>
+          <p id="moneyBox">
+            Habrá un buzón de dinero disponible durante el evento.
+          </p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">🍾</span>
+          <h3>Consumo</h3>
+          <p id="consumption">
+            Cada invitado cubre su propio consumo.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
     <!-- Invitacion adicional en imagen -->
     <section class="card artwork" id="artworkSection" hidden>
 
       <p class="section-kicker">
-        UNA INVITACIÓN ESPECIAL
+        A SPECIAL INVITATION
       </p>
 
       <h2>La invitación</h2>
@@ -162,13 +220,13 @@
     <section class="card rsvp">
 
       <p class="section-kicker">
-        ¡NOS ENCANTARÍA VERTE!
+        No faltes
       </p>
 
       <h2>Confirma tu asistencia</h2>
 
       <p id="rsvpMessage">
-        Ayúdanos confirmando si podrás acompañarnos.
+        Si vendras pulsa el botón de abajo.
       </p>
 
       <a
@@ -189,8 +247,8 @@
 
     <!-- Pie de pagina -->
     <footer>
-      Hecho con cariño ·
-      <span id="footerName">Una celebración especial</span>
+      Hecha con mucho amor para una persona muy especial ·
+      <span id="footerName">Evelyn's Birthday</span>
     </footer>
 
   </main>
