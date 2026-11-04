@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f1">
+  <meta name="description" content="Invitación digital al cumpleaños de Evelyn">
+
+  <title>¡Estás invitado!</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Decoracion -->
+  <div class="confetti confetti-one" aria-hidden="true">✦</div>
+  <div class="confetti confetti-two" aria-hidden="true">✧</div>
+
+  <main class="page">
+
+    <!-- Presentacion principal -->
+    <section class="hero card">
+
+      <p class="eyebrow" id="eyebrow">
+        ¡Tenemos algo que celebrar!
+      </p>
+
+      <div class="portrait-wrap" id="portraitWrap">
+        <img
+          id="portrait"
+          src="assets/foto.jpeg"
+          alt="Fotografía de Evelyn"
+        >
+      </div>
+
+      <p class="intro">
+        Acompáñanos a celebrar
+      </p>
+
+      <h1 id="personName">Evelyn</h1>
+
+      <p class="age-line" id="ageLine">
+        ¡Celebro mis 21 años!
+      </p>
+
+      <div class="rule">
+        <span>✦</span>
+      </div>
+
+      <p class="message" id="message">
+        Será un día muy especial y me encantaría compartirlo contigo.
+      </p>
+
+      <!-- Cuenta regresiva -->
+      <div class="countdown" aria-label="Cuenta regresiva">
+
+        <div>
+          <strong id="days">--</strong>
+          <span>días</span>
+        </div>
+
+        <div>
+          <strong id="hours">--</strong>
+          <span>horas</span>
+        </div>
+
+        <div>
+          <strong id="minutes">--</strong>
+          <span>minutos</span>
+        </div>
+
+        <div>
+          <strong id="seconds">--</strong>
+          <span>segundos</span>
+        </div>
+
+      </div>
+
+      <p class="countdown-label" id="countdownLabel">
+        Falta para la celebración
+      </p>
+
+    </section>
+
+    <!-- Detalles del evento -->
+    <section class="card details">
+
+      <p class="section-kicker">
+        GUARDA LA FECHA
+      </p>
+
+      <h2>Detalles del evento</h2>
+
+      <div class="detail-grid">
+
+        <!-- Fecha -->
+        <div class="detail">
+          <span class="detail-icon">📅</span>
+
+          <div>
+            <small>Fecha</small>
+            <strong id="eventDate">Por definir</strong>
+          </div>
+        </div>
+
+        <!-- Hora -->
+        <div class="detail">
+          <span class="detail-icon">🕒</span>
+
+          <div>
+            <small>Hora</small>
+            <strong id="eventTime">Por definir</strong>
+          </div>
+        </div>
+
+        <!-- Lugar -->
+        <div class="detail">
+          <span class="detail-icon">📍</span>
+
+          <div>
+            <small>Lugar</small>
+            <strong id="venue">Por definir</strong>
+            <span id="address"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <a
+        class="button button-light"
+        id="mapsButton"
+        href="https://maps.google.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Cómo llegar con Google Maps
+      </a>
+
+    </section>
+
+    <!-- Invitacion adicional en imagen -->
+    <section class="card artwork" id="artworkSection" hidden>
+
+      <p class="section-kicker">
+        UNA INVITACIÓN ESPECIAL
+      </p>
+
+      <h2>La invitación</h2>
+
+      <img
+        id="invitationImage"
+        src=""
+        alt="Invitación personalizada"
+      >
+
+    </section>
+
+    <!-- Confirmacion de asistencia -->
+    <section class="card rsvp">
+
+      <p class="section-kicker">
+        ¡NOS ENCANTARÍA VERTE!
+      </p>
+
+      <h2>Confirma tu asistencia</h2>
+
+      <p id="rsvpMessage">
+        Ayúdanos confirmando si podrás acompañarnos.
+      </p>
+
+      <a
+        class="button button-primary"
+        id="rsvpButton"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Confirmar asistencia
+      </a>
+
+      <p class="note">
+        Tu respuesta se registrará en el formulario del evento.
+      </p>
+
+    </section>
+
+    <!-- Pie de pagina -->
+    <footer>
+      Hecho con cariño ·
+      <span id="footerName">Una celebración especial</span>
+    </footer>
+
+  </main>
+
+  <!-- Archivos de configuracion y funcionamiento -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
