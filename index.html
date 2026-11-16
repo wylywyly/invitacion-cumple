@@ -1,261 +1,161 @@
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07070c">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#dfe4eb">
   <meta name="description" content="Evelyn's Birthday - Disco Party">
   <title>Evelyn's Birthday</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=DM+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="ambient ambient-three" aria-hidden="true"></div>
+  <div class="disco-ball" aria-hidden="true"><span></span></div>
+  <div class="spark spark-one" aria-hidden="true">✦</div>
+  <div class="spark spark-two" aria-hidden="true">✧</div>
+  <div class="spark spark-three" aria-hidden="true">✦</div>
+  <div class="starfield" id="starfield" aria-hidden="true"></div>
+  <div class="disco-ball ball-two" aria-hidden="true"><span></span></div>
+  <div class="disco-ball ball-three" aria-hidden="true"><span></span></div>
+  <div class="disco-ball ball-four" aria-hidden="true"><span></span></div>
 
-  <!-- Decoracion estilo disco -->
-  <div class="disco-glow glow-one" aria-hidden="true"></div>
-  <div class="disco-glow glow-two" aria-hidden="true"></div>
-  <div class="disco-ball" aria-hidden="true">✦</div>
-  <div class="spark spark-one" aria-hidden="true">✧</div>
-  <div class="spark spark-two" aria-hidden="true">✦</div>
-
-  <main class="page">
-
-    <!-- Presentacion principal -->
-    <section class="hero card">
-
-      <p class="eyebrow" id="eyebrow">
-        ESTAS INVITADO A
-      </p>
-
-      <div class="portrait-wrap" id="portraitWrap">
-        <img
-          id="portrait"
-          src="assets/foto2.PNG"
-          alt="Fotografía de Evelyn"
-        >
-      </div>
-
-      <p class="intro">
-        Acompáñame a celebrar
-      </p>
-
-      <h1 id="personName">Evelyn</h1>
-
-      <p class="event-title" id="eventTitle">
-        Evelyn's Birthday
-      </p>
-
-      <p class="age-line" id="ageLine">
-        ¡Celebro mis 21 años!
-      </p>
-
-      <div class="rule">
-        <span>✦</span>
-      </div>
-
-      <p class="message" id="message">
-        Prepárate para una noche llena de energia y buenos momentos.
-        ¡Ven a festajar conmigo!
-      </p>
-
-      <div class="disco-tag">
-        ✧ DISCO PARTY ✧
-      </div>
-
-      <!-- Cuenta regresiva -->
-      <div class="countdown" aria-label="Cuenta regresiva">
-
-        <div>
-          <strong id="days">--</strong>
-          <span>días</span>
-        </div>
-
-        <div>
-          <strong id="hours">--</strong>
-          <span>horas</span>
-        </div>
-
-        <div>
-          <strong id="minutes">--</strong>
-          <span>minutos</span>
-        </div>
-
-        <div>
-          <strong id="seconds">--</strong>
-          <span>segundos</span>
-        </div>
-
-      </div>
-
-      <p class="countdown-label" id="countdownLabel">
-        Falta para la celebración
-      </p>
-
-    </section>
-
-    <!-- Detalles del evento -->
-    <section class="card details">
-
-      <p class="section-kicker">
-        
-      </p>
-
-      <h2>Detalles del evento</h2>
-
-      <div class="detail-grid">
-
-        <!-- Fecha -->
-        <div class="detail">
-          <span class="detail-icon">📅</span>
-
-          <div>
-            <small>Fecha</small>
-            <strong id="eventDate">21/11/2026</strong>
+  <main class="presentation" aria-label="Invitación de cumpleaños">
+    <div class="slides" id="slides">
+      <!-- 1. Presentación -->
+      <section class="slide slide-hero is-active" aria-label="Presentación">
+        <div class="slide-content hero-content">
+          <p class="eyebrow" id="eyebrow">ESTÁS INVITADO A</p>
+          <div class="portrait-frame" id="portraitWrap">
+            <img id="portrait" src="assets/foto2.PNG" alt="Fotografía de Evelyn">
           </div>
+          <p class="intro">Acompáñame a celebrar</p>
+          <h1 id="personName">Evelyn</h1>
+          <p class="event-title" id="eventTitle">Evelyn's Birthday</p>
+          <p class="age-line" id="ageLine">¡Celebro mis 21 años!</p>
+          <div class="neon-divider"><span>✦</span></div>
+          <p class="message" id="message">Prepárate para una noche llena de música, baile y buenos momentos. ¡Ven a brillar conmigo!</p>
+          <div class="disco-label">✧ DISCO PARTY ✧</div>
         </div>
+      </section>
 
-        <!-- Hora -->
-        <div class="detail">
-          <span class="detail-icon">🕒</span>
+      <!-- 2. Cuenta regresiva -->
+      <section class="slide" aria-label="Cuenta regresiva">
+        <div class="slide-content">
+          <p class="section-kicker">CONTADOR</p>
+          <h2>La fiesta está por comenzar</h2>
+          <p class="slide-subtitle">Prepárate para una noche inolvidable</p>
+          <div class="countdown" aria-label="Cuenta regresiva">
+            <div class="time-unit"><strong id="days">--</strong><span>DÍAS</span></div>
+            <div class="time-unit"><strong id="hours">--</strong><span>HORAS</span></div>
+            <div class="time-unit"><strong id="minutes">--</strong><span>MINUTOS</span></div>
+            <div class="time-unit"><strong id="seconds">--</strong><span>SEGUNDOS</span></div>
+          </div>
+          <p class="countdown-label" id="countdownLabel">Falta para la celebración</p>
+          <!-- <div class="disco-orbit" aria-hidden="true"><span></span><span></span><span></span></div> -->
+        </div>
+      </section>
 
-          <div>
-            <small>Hora</small>
+      <!-- 3. Fecha y hora -->
+      <section class="slide" aria-label="Fecha y hora">
+        <div class="slide-content">
+          <p class="section-kicker">NO LO OLVIDES</p>
+          <h2>¿Cuándo nos vemos?</h2>
+          <div class="feature-card date-card">
+            <div class="feature-icon">✦</div>
+            <p class="feature-label">FECHA</p>
+            <strong id="eventDate">Sábado 21 de noviembre de 2026</strong>
+          </div>
+          <div class="feature-card time-card">
+            <div class="feature-icon">◷</div>
+            <p class="feature-label">HORA</p>
             <strong id="eventTime">6:00 p. m.</strong>
           </div>
+          <p class="slide-footnote">¡Aparta la fecha y prepárate para brillar!</p>
         </div>
+      </section>
 
-        <!-- Lugar -->
-        <div class="detail">
-          <span class="detail-icon">📍</span>
-
-          <div>
-            <small>Lugar</small>
-            <strong id="venue">Casa de Marcos</strong>
-            <span id="address">Carlos Darwin 6280, Condesa de Álamos, San Lorenzo, 32320 Juárez, Chih.</span>
+      <!-- 4. Lugar -->
+      <section class="slide" aria-label="Lugar del evento">
+        <div class="slide-content">
+          <p class="section-kicker">LUGAR</p>
+          <h2>Nos vemos en</h2>
+          <div class="location-card">
+            <div class="location-pin">📍</div>
+            <p class="feature-label">LUGAR</p>
+            <strong class="venue-name" id="venue">Casa de papá</strong>
+            <p class="address" id="address">Carlos Darwin 6280, Condesa de Álamos, San Lorenzo, 32320 Juárez, Chih.</p>
+            <a class="maps-button" id="mapsButton" href="https://maps.app.goo.gl/vdhCZaY9oWteUJur7" target="_blank" rel="noopener noreferrer">⌖ VER UBICACIÓN EN GOOGLE MAPS ↗</a>
           </div>
+          <p class="slide-footnote">Te esperamos para compartir una gran noche</p>
         </div>
+      </section>
 
-      </div>
-
-      <a
-        class="button button-light"
-        id="mapsButton"
-        href="https://maps.google.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Cómo llegar con Google Maps
-      </a>
-
-    </section>
-
-    <!-- Dress code y recomendaciones -->
-    <section class="card party-info">
-
-      <p class="section-kicker">
-        PARTY INFO
-      </p>
-
-      <h2> Detalles de la fiesta</h2>
-
-      <div class="info-grid">
-
-        <div class="info-item">
-          <span class="info-icon">🖤</span>
-          <h3>Dress code</h3>
-          <p id="dressCode">Todos de negro</p>
+      <!-- 5. Dress code -->
+      <section class="slide" aria-label="Código de vestimenta y temática">
+        <div class="slide-content">
+          <p class="section-kicker">YOUR LOOK</p>
+          <h2>Vístete para la ocasión</h2>
+          <div class="style-card">
+            <div class="style-icon">🖤</div>
+            <p class="feature-label">DRESS CODE</p>
+            <strong id="dressCode">Todos de negro</strong>
+          </div>
+          <div class="style-card secondary-style">
+            <div class="style-icon">💿</div>
+            <p class="feature-label">TEMÁTICA</p>
+            <strong id="themeText">Disco Party</strong>
+          </div>
+          <p class="slide-footnote">¡Saca tu mejor estilo y disfruta la noche!</p>
         </div>
+      </section>
 
-        <div class="info-item">
-          <span class="info-icon">✨</span>
-          <h3>Temática</h3>
-          <p id="themeText">Disco Party</p>
+      <!-- 6. Información adicional -->
+      <section class="slide" aria-label="Información importante">
+        <div class="slide-content">
+          <p class="section-kicker">INFORMACIÓN IMPORTANTE</p>
+          <h2>Un par de detalles</h2>
+          <div class="notice-card">
+            <div class="notice-icon">💌</div>
+            <div><p class="feature-label">BUZÓN DE DINERO</p><strong id="moneyBox">Habrá un buzón de dinero disponible durante el evento.</strong></div>
+          </div>
+          <div class="notice-card">
+            <div class="notice-icon">🍸</div>
+            <div><p class="feature-label">CONSUMO</p><strong id="consumption">No olvides tu consumo.</strong></div>
+          </div>
+          <p class="slide-footnote">Gracias por tomar en cuenta estos detalles</p>
         </div>
+      </section>
 
-        <div class="info-item">
-          <span class="info-icon">💌</span>
-          <h3>Buzón de dinero</h3>
-          <p id="moneyBox">
-            Habrá un buzón de dinero disponible durante el evento.
-          </p>
+      <!-- 7. Cierre -->
+      <section class="slide slide-finale" aria-label="Despedida">
+        <div class="slide-content">
+          <div class="finale-star">✦</div>
+          <p class="section-kicker">VEN A CELEBRAR</p>
+          <h2>¡No puedes faltar!</h2>
+          <p class="finale-message">Evelyn te espera para celebrar sus 21 años con música, baile y mucha diversión.</p>
+          <p class="finale-signature" id="footerName">Evelyn's Birthday</p>
+          <div class="disco-label">Nos vemos en el baile!</div>
         </div>
+      </section>
+    </div>
 
-        <div class="info-item">
-          <span class="info-icon">🍾</span>
-          <h3>Consumo</h3>
-          <p id="consumption">
-            Cada invitado cubre su propio consumo.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- Invitacion adicional en imagen -->
-    <section class="card artwork" id="artworkSection" hidden>
-
-      <p class="section-kicker">
-        A SPECIAL INVITATION
-      </p>
-
-      <h2>La invitación</h2>
-
-      <img
-        id="invitationImage"
-        src=""
-        alt="Invitación personalizada"
-      >
-
-    </section>
-
-    <!-- Confirmacion de asistencia -->
-    <section class="card rsvp">
-
-      <p class="section-kicker">
-        No faltes
-      </p>
-
-      <h2>Confirma tu asistencia</h2>
-
-      <p id="rsvpMessage">
-        Si vendras pulsa el botón de abajo.
-      </p>
-
-      <a
-        class="button button-primary"
-        id="rsvpButton"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Confirmar asistencia
-      </a>
-
-      <p class="note">
-        Tu respuesta se registrará en el formulario del evento.
-      </p>
-
-    </section>
-
-    <!-- Pie de pagina -->
-    <footer>
-      Hecha con mucho amor para una persona muy especial ·
-      <span id="footerName">Evelyn's Birthday</span>
-    </footer>
-
+    <button class="slide-arrow arrow-prev" id="prevSlide" type="button" aria-label="Diapositiva anterior">‹</button>
+    <button class="slide-arrow arrow-next" id="nextSlide" type="button" aria-label="Siguiente diapositiva">›</button>
+    <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+    <p class="auto-hint" aria-live="polite">Avance automático · También puedes usar las flechas</p>
   </main>
 
-  <!-- Archivos de configuracion y funcionamiento -->
+  <!-- ÚNICO CONTROL MANUAL: CONFIRMAR ASISTENCIA -->
+  <a class="rsvp-fixed" id="rsvpButton" href="https://forms.gle/P3X89rEtxBRQZrhk8" target="_blank" rel="noopener noreferrer">
+    <span class="rsvp-star">👉🏻</span> CONFIRMAR ASISTENCIA <span class="rsvp-arrow">↗</span>
+  </a>
+
   <script src="config.js"></script>
   <script src="script.js"></script>
-
 </body>
 </html>

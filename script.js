@@ -1,270 +1,157 @@
-
 (() => {
   "use strict";
 
-  // Obtener la configuracion
-  const c = window.EVENT_CONFIG;
-
-  // Verificar que exista la configuracion
-  if (!c) {
-    console.error("No se encontro EVENT_CONFIG. Revisa config.js.");
-    alert("Error al cargar la configuracion de la invitacion.");
+  const config = window.EVENT_CONFIG;
+  if (!config) {
+    console.error("No se encontró EVENT_CONFIG. Revisa config.js.");
     return;
   }
 
-  // Funcion para seleccionar elementos HTML
   const $ = (id) => document.getElementById(id);
+  const setText = (id, value, fallback = "") => {
+    const element = $(id);
+    if (element) element.textContent = value || fallback;
+  };
 
-  // Datos principales
-  document.title = c.title || "Evelyn's Birthday";
+  // Datos de la invitación
+  document.title = config.title || "Evelyn's Birthday";
+  setText("eyebrow", config.eyebrow, "ESTÁS INVITADO A");
+  setText("personName", config.name, "Evelyn");
+  setText("eventTitle", config.eventTitle || config.title, "Evelyn's Birthday");
+  setText("ageLine", config.age);
+  setText("message", config.message);
+  setText("eventDate", config.displayDate, "Por definir");
+  setText("eventTime", config.displayTime, "Por definir");
+  setText("venue", config.venue, "Por definir");
+  setText("address", config.address);
+  setText("dressCode", config.dressCode, "Todos de negro");
+  setText("themeText", config.theme, "Disco Party");
+  setText("moneyBox", config.moneyBox, "Habrá un buzón de dinero disponible durante el evento.");
+  setText("consumption", config.consumption, "Cada invitado cubre su propio consumo.");
+  setText("footerName", config.footer || config.title, "Evelyn's Birthday");
 
-  $("eyebrow").textContent = c.eyebrow || "";
-  $("personName").textContent = c.name || "Evelyn";
-  $("eventTitle").textContent = c.eventTitle || c.title || "Evelyn's Birthday";
-  $("ageLine").textContent = c.age || "";
-  $("message").textContent = c.message || "";
-
-  // Fecha y hora
-  $("eventDate").textContent = c.displayDate || "Por definir";
-  $("eventTime").textContent = c.displayTime || "Por definir";
-
-  // Lugar y direccion
-  $("venue").textContent = c.venue || "Por definir";
-  $("address").textContent = c.address || "";
-
-  // Google Maps
-  const mapsButton = $("mapsButton");
-
-  mapsButton.href = c.mapsUrl || "https://maps.google.com/";
-  mapsButton.target = "_blank";
-  mapsButton.rel = "noopener noreferrer";
-
-  // Informacion de la fiesta
-  $("dressCode").textContent = c.dressCode || "Todos de negro";
-
-  $("themeText").textContent = c.theme || "Disco Party";
-
-  $("moneyBox").textContent =
-    c.moneyBox || "Habra un buzon de dinero disponible durante el evento.";
-
-  $("consumption").textContent =
-    c.consumption || "Cada invitado cubre su propio consumo.";
-
-  // Mensajes
-  $("rsvpMessage").textContent =
-    c.rsvpMessage || "Ayudame confirmando si podras acompañarme.";
-
-  $("footerName").textContent =
-    c.footer || c.title || "Evelyn's Birthday";
-
-  // Fotografia de Evelyn
+  // Fotografía
   const portraitWrap = $("portraitWrap");
   const portrait = $("portrait");
-
-  if (c.showPortrait !== false && c.portrait) {
-    portrait.src = c.portrait;
+  if (config.showPortrait !== false && config.portrait) {
+    portrait.src = config.portrait;
     portraitWrap.hidden = false;
-
-    portrait.onerror = () => {
-      console.error("No se pudo cargar la fotografia:", c.portrait);
-      portraitWrap.hidden = true;
-    };
-
+    portrait.onerror = () => { portraitWrap.hidden = true; };
   } else {
     portraitWrap.hidden = true;
   }
 
-  // Imagen adicional de invitacion
-  const artworkSection = $("artworkSection");
-  const invitationImage = $("invitationImage");
-
-  if (c.showPng && c.invitationPng) {
-    artworkSection.hidden = false;
-    invitationImage.src = c.invitationPng;
-
-    invitationImage.onerror = () => {
-      console.error("No se pudo cargar la imagen adicional.");
-      artworkSection.hidden = true;
-    };
-
+  // Google Forms: único botón que requiere interacción
+  const formButton = $("rsvpButton");
+  const formUrl = config.googleFormUrl || "";
+  if (/^https:\/\/\S+/.test(formUrl) && !formUrl.includes("PEGA_AQUI")) {
+    formButton.href = formUrl;
   } else {
-    artworkSection.hidden = true;
-  }
-
-  // Google Forms
-  const formUrl = c.googleFormUrl || "";
-  const rsvpButton = $("rsvpButton");
-
-  const validForm =
-    /^https:\/\/\S+/.test(formUrl) &&
-    !formUrl.includes("PEGA_AQUI");
-
-  if (validForm) {
-    rsvpButton.href = formUrl;
-    rsvpButton.target = "_blank";
-    rsvpButton.rel = "noopener noreferrer";
-
-  } else {
-    rsvpButton.href = "#";
-
-    rsvpButton.addEventListener("click", (event) => {
+    formButton.addEventListener("click", (event) => {
       event.preventDefault();
-      alert("Falta configurar el enlace de Google Forms.");
+      alert("El enlace del formulario todavía no está configurado.");
     });
   }
+
+  // Botón de ubicación: conserva el enlace exacto de Google Maps.
+  const mapsButton = $("mapsButton");
+  if (mapsButton && config.mapsUrl) mapsButton.href = config.mapsUrl;
 
   // Cuenta regresiva
-  const target = new Date(c.dateTime).getTime();
-
-  const countdownIds = [
-    "days",
-    "hours",
-    "minutes",
-    "seconds"
-  ];
-
-  const updateCountdown = () => {
-
-    // Verificar que la fecha sea valida
-    if (!Number.isFinite(target)) {
-
-      countdownIds.forEach((id) => {
-        $(id).textContent = "--";
-      });
-
-      $("countdownLabel").textContent =
-        "Configura la fecha del evento";
-
+  const targetDate = new Date(config.dateTime).getTime();
+  const countdownIds = ["days", "hours", "minutes", "seconds"];
+  function updateCountdown() {
+    if (!Number.isFinite(targetDate)) {
+      countdownIds.forEach((id) => setText(id, "--"));
+      setText("countdownLabel", "Fecha pendiente de configurar");
       return;
     }
 
-    const distance = target - Date.now();
-
-    // Cuando llega el dia del evento
+    const distance = targetDate - Date.now();
     if (distance <= 0) {
-
-      countdownIds.forEach((id) => {
-        $(id).textContent = "00";
-      });
-
-      $("countdownLabel").textContent =
-        "¡Hoy celebramos!";
-
+      countdownIds.forEach((id) => setText(id, "00"));
+      setText("countdownLabel", "¡Hoy celebramos!");
       return;
     }
 
-    // Calcular tiempo restante
-    const days = Math.floor(distance / 86400000);
-
-    const hours = Math.floor(
-      (distance % 86400000) / 3600000
-    );
-
-    const minutes = Math.floor(
-      (distance % 3600000) / 60000
-    );
-
-    const seconds = Math.floor(
-      (distance % 60000) / 1000
-    );
-
-    // Mostrar resultados
-    $("days").textContent =
-      String(days).padStart(2, "0");
-
-    $("hours").textContent =
-      String(hours).padStart(2, "0");
-
-    $("minutes").textContent =
-      String(minutes).padStart(2, "0");
-
-    $("seconds").textContent =
-      String(seconds).padStart(2, "0");
-  };
-
-  // Iniciar cuenta regresiva
+    const values = [
+      Math.floor(distance / 86400000),
+      Math.floor((distance % 86400000) / 3600000),
+      Math.floor((distance % 3600000) / 60000),
+      Math.floor((distance % 60000) / 1000)
+    ];
+    countdownIds.forEach((id, index) => setText(id, String(values[index]).padStart(2, "0")));
+  }
   updateCountdown();
-
-  // Actualizar cada segundo
   window.setInterval(updateCountdown, 1000);
-  
-/* ==========================================
-   PARTICULAS FLOTANTES PLATEADAS
-   ========================================== */
 
-(function createSilverParticles() {
-  const particleCount = 35;
+  // Presentación horizontal automática: no necesita flechas, gestos ni desplazamiento manual.
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const track = $("slides");
+  const progress = $("progressBar");
+  const slideDuration = 9000;
+  let currentSlide = 0;
+  let slideTimer = null;
+  let progressFrame = null;
+  let slideStartedAt = 0;
 
-  const container = document.createElement("div");
-
-  container.id = "silver-particles";
-
-  Object.assign(container.style, {
-    position: "fixed",
-    inset: "0",
-    overflow: "hidden",
-    pointerEvents: "none",
-    zIndex: "0"
-  });
-
-  document.body.appendChild(container);
-
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement("span");
-
-    particle.className = "silver-particle";
-
-    const size = Math.random() * 4 + 2;
-    const duration = Math.random() * 10 + 8;
-    const delay = Math.random() * -15;
-
-    Object.assign(particle.style, {
-      position: "absolute",
-      left: Math.random() * 100 + "%",
-      top: Math.random() * 100 + "%",
-      width: size + "px",
-      height: size + "px",
-      borderRadius: "50%",
-      background: "#ffffff",
-      opacity: "0",
-      boxShadow: "0 0 10px #ffffff",
-      animation: `particleFloat ${duration}s ${delay}s linear infinite`
+  function showSlide(index) {
+    currentSlide = index % slides.length;
+    track.style.transform = `translate3d(-${currentSlide * 100}%, 0, 0)`;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("is-active", i === currentSlide);
+      slide.setAttribute("aria-hidden", i === currentSlide ? "false" : "true");
     });
-
-    container.appendChild(particle);
+    slideStartedAt = performance.now();
+    if (progress) progress.style.width = "0%";
   }
 
-  const style = document.createElement("style");
+  function animateProgress(now) {
+    const elapsed = now - slideStartedAt;
+    const percent = Math.min((elapsed / slideDuration) * 100, 100);
+    if (progress) progress.style.width = `${percent}%`;
+    progressFrame = window.requestAnimationFrame(animateProgress);
+  }
 
-  style.textContent = `
-    @keyframes particleFloat {
-      0% {
-        transform: translate3d(0, 0, 0) scale(.5);
-        opacity: 0;
-      }
+  function startPresentation() {
+    if (slideTimer) window.clearInterval(slideTimer);
+    if (progressFrame) window.cancelAnimationFrame(progressFrame);
+    showSlide(currentSlide);
+    progressFrame = window.requestAnimationFrame(animateProgress);
+    slideTimer = window.setInterval(() => showSlide(currentSlide + 1), slideDuration);
+  }
 
-      15% {
-        opacity: .8;
-      }
+  // Las flechas permiten avanzar voluntariamente sin desactivar el modo automático.
+  const previousButton = $("prevSlide");
+  const nextButton = $("nextSlide");
+  function moveManually(direction) {
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    startPresentation();
+  }
+  previousButton?.addEventListener("click", () => moveManually(-1));
+  nextButton?.addEventListener("click", () => moveManually(1));
 
-      50% {
-        transform: translate3d(35px, -100px, 0) scale(1);
-        opacity: .65;
-      }
+  // También permite cambiar de pantalla con las teclas de flecha en computadora.
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") moveManually(1);
+    if (event.key === "ArrowLeft") moveManually(-1);
+  });
 
-      85% {
-        opacity: .5;
-      }
+  // Se adapta si el navegador cambia el tamaño de pantalla.
+  window.addEventListener("resize", () => {
+    track.style.transform = `translate3d(-${currentSlide * 100}%, 0, 0)`;
+  });
+  startPresentation();
 
-      100% {
-        transform: translate3d(-20px, -220px, 0) scale(.3);
-        opacity: 0;
-      }
-    }
-  `;
-
-  document.head.appendChild(style);
-})();
-
-
+  // Pequeños destellos flotantes del fondo
+  const starfield = $("starfield");
+  for (let i = 0; i < 32; i++) {
+    const star = document.createElement("span");
+    star.className = "floating-star";
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDelay = `${Math.random() * -12}s`;
+    star.style.animationDuration = `${7 + Math.random() * 9}s`;
+    starfield.appendChild(star);
+  }
 })();

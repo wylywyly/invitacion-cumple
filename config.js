@@ -1,13 +1,11 @@
-
 // CONFIGURACIÓN DE LA INVITACIÓN
 window.EVENT_CONFIG = {
-  // Datos principales
   title: "Evelyn's Birthday",
   eventTitle: "Evelyn's Birthday",
-  eyebrow: "ESTAS INVITADO A",
+  eyebrow: "ESTÁS INVITADO A",
   name: "Evelyn",
   age: "¡Celebro mis 21 años!",
-  message: "Prepárate para una noche llena de energia y buenos momentos. ¡Ven a festajar conmigo!",
+  message: "Prepárate para una noche llena de música, baile y buenos momentos. ¡Ven a brillar conmigo!",
 
   // Fecha y hora
   dateTime: "2026-11-21T18:00:00",
@@ -15,26 +13,23 @@ window.EVENT_CONFIG = {
   displayTime: "6:00 p. m.",
 
   // Lugar
-  venue: "Casa de Marcos",
+  venue: "Casa de papá",
   address: "Carlos Darwin 6280, Condesa de Álamos, San Lorenzo, 32320 Juárez, Chih.",
   mapsUrl: "https://maps.app.goo.gl/vdhCZaY9oWteUJur7",
 
-  // Temática y detalles de la fiesta
+  // Información de la fiesta
   theme: "Disco Party",
   dressCode: "Todos de negro",
-  moneyBox: "Habrá buzon de dinero",
-  consumption: "Consumo propio",
+  moneyBox: "Habrá un buzón de dinero disponible durante el evento.",
+  consumption: "No olvides tu consumo.",
 
-  // Imágenes
+  // Fotografía
   portrait: "assets/foto2.PNG",
-  invitationPng: "",
   showPortrait: true,
-  showPng: false,
 
-  // Confirmación de asistencia
+  // Confirmación
   googleFormUrl: "https://forms.gle/P3X89rEtxBRQZrhk8",
-  rsvpMessage: "Si vendras pulsa el botón de abajo.",
+  rsvpMessage: "Para confirmar tu asistencia, utiliza el botón fijo de la parte inferior.",
 
-  // Pie de página
   footer: "Evelyn's Birthday"
 };
