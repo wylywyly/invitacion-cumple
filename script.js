@@ -154,4 +154,130 @@
     star.style.animationDuration = `${7 + Math.random() * 9}s`;
     starfield.appendChild(star);
   }
+  
+  // =====================================================
+  // REPRODUCTOR DE MÚSICA DE FONDO
+  // Inicio automático en la primera interacción
+  // =====================================================
+
+  const backgroundMusic = $("backgroundMusic");
+  const musicButton = $("musicButton");
+
+  if (backgroundMusic && musicButton) {
+
+    backgroundMusic.volume = 0.4;
+    backgroundMusic.loop = true;
+
+    let musicStarted = false;
+    let playAttemptInProgress = false;
+
+    function updateMusicButton(isPlaying) {
+      if (isPlaying) {
+        musicButton.innerHTML = "⏸ <span>PAUSAR MÚSICA</span>";
+        musicButton.classList.add("playing");
+        musicButton.setAttribute("aria-label", "Pausar música");
+      } else {
+        musicButton.innerHTML = "▶ <span>ACTIVAR MÚSICA</span>";
+        musicButton.classList.remove("playing");
+        musicButton.setAttribute("aria-label", "Activar música");
+      }
+    }
+
+    async function startMusic() {
+
+      if (playAttemptInProgress || !backgroundMusic.paused) {
+        return;
+      }
+
+      playAttemptInProgress = true;
+
+      try {
+        await backgroundMusic.play();
+
+        musicStarted = true;
+        updateMusicButton(true);
+
+        // Ya comenzó: no necesitamos detectar más interacciones.
+        document.removeEventListener(
+          "pointerdown",
+          handleFirstInteraction,
+          true
+        );
+
+        document.removeEventListener(
+          "keydown",
+          handleFirstInteraction,
+          true
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "No se pudo iniciar la música. Se intentará nuevamente.",
+          error
+        );
+
+        updateMusicButton(false);
+
+      } finally {
+        playAttemptInProgress = false;
+      }
+    }
+
+    // Primera interacción en cualquier parte de la invitación.
+    function handleFirstInteraction(event) {
+
+      // Evita que el botón de música inicie y pause
+      // inmediatamente la canción en el mismo clic.
+      const target = event.target;
+
+      if (
+        target instanceof Element &&
+        target.closest("#musicButton")
+      ) {
+        return;
+      }
+
+      if (!musicStarted) {
+        startMusic();
+      }
+    }
+
+    // Detecta toques y clics.
+    document.addEventListener(
+      "pointerdown",
+      handleFirstInteraction,
+      true
+    );
+
+    // También permite iniciar mediante el teclado.
+    document.addEventListener(
+      "keydown",
+      handleFirstInteraction,
+      true
+    );
+
+    // Control manual del reproductor.
+    musicButton.addEventListener("click", async () => {
+
+      if (backgroundMusic.paused) {
+        await startMusic();
+      } else {
+        backgroundMusic.pause();
+        updateMusicButton(false);
+      }
+
+    });
+
+    // Mantiene actualizado el botón si cambia el estado del audio.
+    backgroundMusic.addEventListener("play", () => {
+      updateMusicButton(true);
+    });
+
+    backgroundMusic.addEventListener("pause", () => {
+      updateMusicButton(false);
+    });
+
+    updateMusicButton(false);
+      }
 })();

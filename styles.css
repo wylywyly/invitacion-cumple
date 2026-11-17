@@ -330,3 +330,99 @@ body::before {
 @media (max-height: 680px) {
   .portrait-frame { width: 145px; height: 145px; }
 }
+
+/* ==========================================================
+   REPRODUCTOR DE MUSICA - DISCO PARTY
+   ========================================================== */
+
+.music-button {
+  position: fixed;
+  z-index: 30;
+  top: 22px;
+  left: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 46px;
+  padding: 11px 19px;
+
+  border: 1px solid #fff;
+  border-radius: 50px;
+
+  color: #39465a;
+  background: linear-gradient(
+    110deg,
+    #fff,
+    #c2ccd9 35%,
+    #fff 65%,
+    #e9c9e4
+  );
+
+  box-shadow:
+    0 6px 22px rgba(64,76,96,.2),
+    0 0 22px rgba(255,255,255,.95),
+    inset 0 0 12px #fff;
+
+  font-family: 'Orbitron', sans-serif;
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.music-button:hover {
+  transform: translateY(-3px) scale(1.04);
+
+  box-shadow:
+    0 8px 26px rgba(64,76,96,.24),
+    0 0 30px #fff,
+    inset 0 0 15px #fff;
+}
+
+.music-button.playing {
+  animation: musicGlow 2s ease-in-out infinite;
+}
+
+.music-button:active {
+  transform: scale(.96);
+}
+
+.music-button:focus-visible {
+  outline: 3px solid #8b75b6;
+  outline-offset: 4px;
+}
+
+/* Animación cuando la música está reproduciéndose */
+
+@keyframes musicGlow {
+  0%, 100% {
+    box-shadow:
+      0 6px 22px rgba(64,76,96,.2),
+      0 0 18px rgba(255,255,255,.9);
+  }
+
+  50% {
+    box-shadow:
+      0 6px 26px rgba(64,76,96,.25),
+      0 0 32px #fff,
+      0 0 18px rgba(217,75,189,.3);
+  }
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 540px) {
+  .music-button {
+    top: 12px;
+    left: 12px;
+    min-height: 40px;
+    padding: 9px 13px;
+    font-size: .58rem;
+    gap: 6px;
+  }
+}
